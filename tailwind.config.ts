@@ -57,6 +57,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Farm theme colors
+        "grass-green": "hsl(var(--grass-green))",
+        "soil-brown": "hsl(var(--soil-brown))",
+        "sunrise-gold": "hsl(var(--sunrise-gold))",
+        "sky-blue": "hsl(var(--sky-blue))",
       },
       borderRadius: {
         lg: "var(--radius)",
