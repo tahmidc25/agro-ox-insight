@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d5016;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6a9f3e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Cattle silhouette -->
+  <ellipse cx="50" cy="60" rx="30" ry="25" fill="url(#gradient)"/>
+  <ellipse cx="50" cy="45" rx="20" ry="18" fill="url(#gradient)"/>
+  <!-- Horns -->
+  <path d="M 35 35 Q 30 25 35 20 Q 38 22 35 35" fill="#2d5016"/>
+  <path d="M 65 35 Q 70 25 65 20 Q 62 22 65 35" fill="#2d5016"/>
+  <!-- AI symbol (small sparkle) -->
+  <circle cx="75" cy="25" r="8" fill="#fbbf24" opacity="0.9"/>
+  <path d="M 75 17 L 75 33 M 67 25 L 83 25 M 71 21 L 79 29 M 79 21 L 71 29" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+

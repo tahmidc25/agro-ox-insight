@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
 
 interface NutritionPlan {
@@ -25,12 +26,13 @@ const NutritionPlanner = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [plan, setPlan] = useState<NutritionPlan | null>(null);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const generatePlan = async () => {
     if (!breed || !age || !weight) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in all fields",
+        title: t("nutrition.form.error"),
+        description: t("nutrition.form.errorDesc"),
         variant: "destructive",
       });
       return;
@@ -56,8 +58,8 @@ const NutritionPlanner = () => {
       });
       setIsGenerating(false);
       toast({
-        title: "Plan Generated",
-        description: "Your nutrition plan is ready",
+        title: t("nutrition.success.title"),
+        description: t("nutrition.success.desc"),
       });
     }, 1500);
   };
@@ -68,9 +70,9 @@ const NutritionPlanner = () => {
       
       <div className="container py-12">
         <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-foreground">Nutrition Planner</h1>
+          <h1 className="mb-4 text-4xl font-bold text-foreground">{t("nutrition.title")}</h1>
           <p className="text-lg text-muted-foreground">
-            Get personalized feed recommendations based on breed, age, and weight
+            {t("nutrition.subtitle")}
           </p>
         </div>
 
@@ -78,15 +80,15 @@ const NutritionPlanner = () => {
           {/* Input Form */}
           <Card>
             <CardHeader>
-              <CardTitle>Cattle Information</CardTitle>
-              <CardDescription>Enter details to generate nutrition plan</CardDescription>
+              <CardTitle>{t("nutrition.form.title")}</CardTitle>
+              <CardDescription>{t("nutrition.form.desc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="breed">Breed</Label>
+                <Label htmlFor="breed">{t("nutrition.form.breed")}</Label>
                 <Select value={breed} onValueChange={setBreed}>
                   <SelectTrigger id="breed">
-                    <SelectValue placeholder="Select breed" />
+                    <SelectValue placeholder={t("nutrition.form.breed.placeholder")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="pabna">Pabna</SelectItem>
@@ -99,11 +101,11 @@ const NutritionPlanner = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="age">Age (months)</Label>
+                <Label htmlFor="age">{t("nutrition.form.age")}</Label>
                 <Input
                   id="age"
                   type="number"
-                  placeholder="e.g., 36"
+                  placeholder={t("nutrition.form.age.placeholder")}
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                   min="1"
@@ -112,11 +114,11 @@ const NutritionPlanner = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="weight">Weight (kg)</Label>
+                <Label htmlFor="weight">{t("nutrition.form.weight")}</Label>
                 <Input
                   id="weight"
                   type="number"
-                  placeholder="e.g., 450"
+                  placeholder={t("nutrition.form.weight.placeholder")}
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                   min="50"
@@ -132,10 +134,10 @@ const NutritionPlanner = () => {
                 {isGenerating ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Generating Plan...
+                    {t("nutrition.form.generating")}
                   </>
                 ) : (
-                  "Generate Nutrition Plan"
+                  t("nutrition.form.generate")
                 )}
               </Button>
             </CardContent>
@@ -147,35 +149,35 @@ const NutritionPlanner = () => {
               <>
                 <Card>
                   <CardHeader>
-                    <CardTitle>Daily Nutritional Requirements</CardTitle>
+                    <CardTitle>{t("nutrition.results.title")}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Dry Matter:</span>
-                      <span className="font-semibold">{plan.dailyDryMatter} kg</span>
+                      <span className="text-muted-foreground">{t("nutrition.results.dryMatter")}</span>
+                      <span className="font-semibold">{plan.dailyDryMatter} {t("common.kg")}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Protein:</span>
-                      <span className="font-semibold">{plan.protein} kg</span>
+                      <span className="text-muted-foreground">{t("nutrition.results.protein")}</span>
+                      <span className="font-semibold">{plan.protein} {t("common.kg")}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Fiber:</span>
-                      <span className="font-semibold">{plan.fiber} kg</span>
+                      <span className="text-muted-foreground">{t("nutrition.results.fiber")}</span>
+                      <span className="font-semibold">{plan.fiber} {t("common.kg")}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Minerals:</span>
-                      <span className="font-semibold">{plan.minerals} kg</span>
+                      <span className="text-muted-foreground">{t("nutrition.results.minerals")}</span>
+                      <span className="font-semibold">{plan.minerals} {t("common.kg")}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Water:</span>
-                      <span className="font-semibold">{plan.water} liters</span>
+                      <span className="text-muted-foreground">{t("nutrition.results.water")}</span>
+                      <span className="font-semibold">{plan.water} {t("common.liters")}</span>
                     </div>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Feed Recommendations</CardTitle>
+                    <CardTitle>{t("nutrition.results.feed")}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {plan.feedRecommendations.map((feed, index) => (
@@ -187,7 +189,7 @@ const NutritionPlanner = () => {
                           <p className="font-medium">{feed.name}</p>
                           <p className="text-sm text-muted-foreground">{feed.amount}</p>
                         </div>
-                        <span className="font-semibold text-primary">৳{feed.cost}</span>
+                        <span className="font-semibold text-primary">{t("common.currency")}{feed.cost}</span>
                       </div>
                     ))}
                   </CardContent>
@@ -196,11 +198,11 @@ const NutritionPlanner = () => {
                 <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
-                      <span className="text-lg font-semibold">Estimated Daily Cost:</span>
-                      <span className="text-2xl font-bold text-primary">৳{plan.estimatedCost}</span>
+                      <span className="text-lg font-semibold">{t("nutrition.results.cost")}</span>
+                      <span className="text-2xl font-bold text-primary">{t("common.currency")}{plan.estimatedCost}</span>
                     </div>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Based on local market prices in Bangladesh
+                      {t("nutrition.results.costDesc")}
                     </p>
                   </CardContent>
                 </Card>
@@ -209,7 +211,7 @@ const NutritionPlanner = () => {
               <Card>
                 <CardContent className="flex min-h-[400px] items-center justify-center p-12">
                   <p className="text-center text-muted-foreground">
-                    Enter cattle details and generate a plan to see recommendations
+                    {t("nutrition.results.empty")}
                   </p>
                 </CardContent>
               </Card>

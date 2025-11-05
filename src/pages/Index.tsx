@@ -2,31 +2,34 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Brain, Leaf, TrendingUp, Users } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
 import heroFarm from "@/assets/hero-farm.jpg";
 import aiAgriIcon from "@/assets/ai-agri-icon.png";
 
 const Index = () => {
+  const { t } = useLanguage();
+  
   const features = [
     {
       icon: <Brain className="h-8 w-8 text-primary" />,
-      title: "AI-Powered Analysis",
-      description: "Advanced AI models for breed detection, weight estimation, and disease diagnosis with high accuracy.",
+      title: t("home.feature1.title"),
+      description: t("home.feature1.desc"),
     },
     {
       icon: <Leaf className="h-8 w-8 text-grass-green" />,
-      title: "Smart Nutrition Planning",
-      description: "Personalized feed recommendations based on breed, age, and weight with local market pricing.",
+      title: t("home.feature2.title"),
+      description: t("home.feature2.desc"),
     },
     {
       icon: <TrendingUp className="h-8 w-8 text-sunrise-gold" />,
-      title: "Business Insights",
-      description: "Expert guidance on farm setup, financial planning, and market strategies to grow your business.",
+      title: t("home.feature3.title"),
+      description: t("home.feature3.desc"),
     },
     {
       icon: <Users className="h-8 w-8 text-sky-blue" />,
-      title: "Farmer Dashboard",
-      description: "Track your cattle's health, growth, and expenses with visual insights and historical data.",
+      title: t("home.feature4.title"),
+      description: t("home.feature4.desc"),
     },
   ];
 
@@ -52,23 +55,19 @@ const Index = () => {
           </div>
           
           <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-6xl md:text-7xl">
-            Transform Your Cattle Farm with{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Smart AI Insights
-            </span>
+            {t("home.title")}
           </h1>
           
           <p className="max-w-2xl text-lg text-muted-foreground md:text-xl">
-            From breed detection to business planning, AgroOx AI guides you from zero to success. 
-            Make informed decisions with AI-powered analysis and expert recommendations.
+            {t("home.subtitle")}
           </p>
           
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button size="lg" asChild className="text-base">
-              <Link to="/analysis">Start Analysis</Link>
+              <Link to="/analysis">{t("home.startAnalysis")}</Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="text-base">
-              <Link to="/advisor">Get Business Advice</Link>
+              <Link to="/advisor">{t("home.getAdvice")}</Link>
             </Button>
           </div>
         </div>
@@ -78,10 +77,10 @@ const Index = () => {
       <section className="container py-20">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
-            Everything You Need to Succeed
+            {t("home.features.title")}
           </h2>
           <p className="text-lg text-muted-foreground">
-            Comprehensive AI tools designed for small and medium-scale cattle farmers
+            {t("home.features.subtitle")}
           </p>
         </div>
 
@@ -105,13 +104,13 @@ const Index = () => {
         <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5">
           <CardContent className="flex flex-col items-center gap-6 p-12 text-center">
             <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-              Ready to Transform Your Farm?
+              {t("home.cta.title")}
             </h2>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Join hundreds of farmers using AI to make smarter decisions and increase profitability
+              {t("home.cta.subtitle")}
             </p>
             <Button size="lg" asChild>
-              <Link to="/auth">Get Started Free</Link>
+              <Link to="/auth">{t("home.cta.button")}</Link>
             </Button>
           </CardContent>
         </Card>

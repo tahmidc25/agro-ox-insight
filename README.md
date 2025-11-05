@@ -1,73 +1,83 @@
-# Welcome to your Lovable project
+# AgroOx AI - Smart Cattle Farming Platform
 
-## Project info
+AI-powered cattle farming platform helping farmers with breed detection, nutrition planning, health monitoring, and business insights.
 
-**URL**: https://lovable.dev/projects/dba009ad-c8f9-480d-a5ed-7b585fc2abce
+## Features
 
-## How can I edit this code?
+- **Breed Detection**: Upload cattle photos to identify breed and get detailed information
+- **Weight & Age Estimation**: AI-powered analysis to estimate cattle weight and age
+- **Disease Detection**: Early detection of common cattle diseases
+- **Nutrition Planner**: Personalized feed recommendations based on breed, age, and weight
+- **Business Advisor**: AI-powered guidance for farm setup, financial planning, and market strategies
+- **Farmer Dashboard**: Track cattle health, growth, and farm expenses with visual insights
+- **Bilingual Support**: Full English and Bangla language support
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/dba009ad-c8f9-480d-a5ed-7b585fc2abce) and start prompting.
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+1. Clone the repository:
+```bash
 git clone <YOUR_GIT_URL>
+cd agro-ox-insight
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
+```bash
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Create a `.env` file in the root directory with your Supabase credentials:
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_key
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Building for Production
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+The built files will be in the `dist` directory.
 
-## What technologies are used for this project?
+## Tech Stack
 
-This project is built with:
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Routing**: React Router
+- **State Management**: React Query
+- **Backend**: Supabase (Auth + Database)
+- **Build Tool**: Vite
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Project Structure
 
-## How can I deploy this project?
+```
+src/
+├── components/     # Reusable UI components
+├── pages/          # Page components
+├── contexts/       # React contexts (Language, etc.)
+├── hooks/          # Custom React hooks
+├── integrations/   # Third-party integrations
+└── lib/            # Utility functions
+```
 
-Simply open [Lovable](https://lovable.dev/projects/dba009ad-c8f9-480d-a5ed-7b585fc2abce) and click on Share -> Publish.
+## Contributing
 
-## Can I connect a custom domain to my Lovable project?
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Yes, you can!
+## License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is private and proprietary.

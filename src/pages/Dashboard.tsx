@@ -1,31 +1,34 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Activity, DollarSign, Beef } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
+  const { t } = useLanguage();
+  
   const stats = [
     {
-      title: "Total Cattle",
+      title: t("dashboard.stats.cattle"),
       value: "12",
       icon: <Beef className="h-4 w-4" />,
       trend: "+2 this month",
     },
     {
-      title: "Avg. Weight",
-      value: "425 kg",
+      title: t("dashboard.stats.weight"),
+      value: `425 ${t("common.kg")}`,
       icon: <Activity className="h-4 w-4" />,
-      trend: "+15 kg growth",
+      trend: `+15 ${t("common.kg")} growth`,
     },
     {
-      title: "Monthly Cost",
-      value: "৳42,000",
+      title: t("dashboard.stats.cost"),
+      value: `${t("common.currency")}42,000`,
       icon: <DollarSign className="h-4 w-4" />,
       trend: "Feed + Healthcare",
     },
     {
-      title: "Health Score",
+      title: t("dashboard.stats.health"),
       value: "94%",
       icon: <TrendingUp className="h-4 w-4" />,
       trend: "Excellent",
@@ -44,9 +47,9 @@ const Dashboard = () => {
       
       <div className="container py-12">
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold text-foreground">Farmer Dashboard</h1>
+          <h1 className="mb-2 text-4xl font-bold text-foreground">{t("dashboard.title")}</h1>
           <p className="text-lg text-muted-foreground">
-            Track your cattle's health, growth, and farm expenses
+            {t("dashboard.subtitle")}
           </p>
         </div>
 
@@ -71,8 +74,8 @@ const Dashboard = () => {
         {/* Recent Analyses */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Recent Analyses</CardTitle>
-            <CardDescription>Your latest cattle health check results</CardDescription>
+            <CardTitle>{t("dashboard.recent.title")}</CardTitle>
+            <CardDescription>{t("dashboard.recent.desc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -87,11 +90,11 @@ const Dashboard = () => {
                   </div>
                   <div className="flex items-center gap-6">
                     <div className="text-right">
-                      <p className="text-sm text-muted-foreground">Weight</p>
-                      <p className="font-semibold">{analysis.weight} kg</p>
+                      <p className="text-sm text-muted-foreground">{t("dashboard.recent.weight")}</p>
+                      <p className="font-semibold">{analysis.weight} {t("common.kg")}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-muted-foreground">Health</p>
+                      <p className="text-sm text-muted-foreground">{t("dashboard.recent.health")}</p>
                       <p className="font-semibold text-grass-green">{analysis.health}</p>
                     </div>
                   </div>
@@ -104,17 +107,17 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle>{t("dashboard.actions.title")}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-4">
             <Button asChild>
-              <Link to="/analysis">New Analysis</Link>
+              <Link to="/analysis">{t("dashboard.actions.analysis")}</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link to="/nutrition">Plan Nutrition</Link>
+              <Link to="/nutrition">{t("dashboard.actions.nutrition")}</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link to="/advisor">Get Advice</Link>
+              <Link to="/advisor">{t("dashboard.actions.advice")}</Link>
             </Button>
           </CardContent>
         </Card>

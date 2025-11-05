@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
 import cowIcon from "@/assets/cow-icon.png";
@@ -15,6 +16,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { toast } = useToast();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -33,8 +35,8 @@ const Auth = () => {
       if (error) throw error;
 
       toast({
-        title: "Success!",
-        description: "Account created successfully. You can now sign in.",
+        title: t("auth.success"),
+        description: t("auth.successDesc"),
       });
       
       // Auto sign in after signup
@@ -48,8 +50,8 @@ const Auth = () => {
       navigate("/dashboard");
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to create account",
+        title: t("auth.error"),
+        description: error.message || t("auth.errorDesc"),
         variant: "destructive",
       });
     } finally {
@@ -70,15 +72,15 @@ const Auth = () => {
       if (error) throw error;
 
       toast({
-        title: "Welcome back!",
-        description: "Successfully signed in",
+        title: t("auth.welcome"),
+        description: t("auth.welcomeDesc"),
       });
       
       navigate("/dashboard");
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to sign in",
+        title: t("auth.error"),
+        description: error.message || t("auth.errorSignIn"),
         variant: "destructive",
       });
     } finally {
@@ -93,26 +95,26 @@ const Auth = () => {
           <div className="mb-4 flex justify-center">
             <img src={cowIcon} alt="AgroOx" className="h-16 w-16" />
           </div>
-          <CardTitle className="text-2xl">AgroOx AI</CardTitle>
+          <CardTitle className="text-2xl">{t("auth.title")}</CardTitle>
           <CardDescription>
-            Sign in or create an account to start using our AI-powered cattle farming platform
+            {t("auth.subtitle")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="signin">{t("auth.signIn")}</TabsTrigger>
+              <TabsTrigger value="signup">{t("auth.signUp")}</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-email">{t("auth.email")}</Label>
                   <Input
                     id="signin-email"
                     type="email"
-                    placeholder="farmer@example.com"
+                    placeholder={t("auth.email.placeholder")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -120,7 +122,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">Password</Label>
+                  <Label htmlFor="signin-password">{t("auth.password")}</Label>
                   <Input
                     id="signin-password"
                     type="password"
@@ -134,10 +136,10 @@ const Auth = () => {
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Signing in...
+                      {t("auth.signingIn")}
                     </>
                   ) : (
-                    "Sign In"
+                    t("auth.signIn")
                   )}
                 </Button>
               </form>
@@ -146,11 +148,11 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email">{t("auth.email")}</Label>
                   <Input
                     id="signup-email"
                     type="email"
-                    placeholder="farmer@example.com"
+                    placeholder={t("auth.email.placeholder")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -158,7 +160,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password">{t("auth.password")}</Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -169,17 +171,17 @@ const Auth = () => {
                     minLength={6}
                   />
                   <p className="text-xs text-muted-foreground">
-                    Password must be at least 6 characters
+                    {t("auth.password.minLength")}
                   </p>
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating account...
+                      {t("auth.creating")}
                     </>
                   ) : (
-                    "Create Account"
+                    t("auth.signUp")
                   )}
                 </Button>
               </form>

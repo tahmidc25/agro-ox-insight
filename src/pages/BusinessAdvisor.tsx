@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -14,10 +15,11 @@ interface Message {
 }
 
 const BusinessAdvisor = () => {
+  const { t } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hello! I'm your AI Business Advisor for cattle farming. I can help you with farm setup, financial planning, market strategies, and more. How can I assist you today?",
+      content: t("advisor.chat.greeting"),
     },
   ]);
   const [input, setInput] = useState("");
@@ -41,14 +43,14 @@ const BusinessAdvisor = () => {
 
       const assistantMessage: Message = {
         role: "assistant",
-        content: data.response || "I apologize, but I couldn't generate a response. Please try again.",
+        content: data.response || t("advisor.chat.fallback"),
       };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error("Error:", error);
       toast({
-        title: "Error",
-        description: "Failed to get response. Please try again.",
+        title: t("advisor.chat.error"),
+        description: t("advisor.chat.errorDesc"),
         variant: "destructive",
       });
       // Add fallback response
@@ -56,7 +58,7 @@ const BusinessAdvisor = () => {
         ...prev,
         {
           role: "assistant",
-          content: "I apologize for the inconvenience. As a cattle farming business advisor, I can help with:\n\n• Farm setup and space planning\n• Initial investment and ROI calculations\n• Feed cost optimization\n• Market analysis and selling strategies\n• Breed selection guidance\n• Growth tracking and health management\n\nPlease feel free to ask any specific questions!",
+          content: t("advisor.chat.fallback"),
         },
       ]);
     } finally {
@@ -77,18 +79,18 @@ const BusinessAdvisor = () => {
       
       <div className="container py-12">
         <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-foreground">AI Business Advisor</h1>
+          <h1 className="mb-4 text-4xl font-bold text-foreground">{t("advisor.title")}</h1>
           <p className="text-lg text-muted-foreground">
-            Get expert guidance on farm setup, finances, and market strategies
+            {t("advisor.subtitle")}
           </p>
         </div>
 
         <div className="mx-auto max-w-4xl">
           <Card>
             <CardHeader>
-              <CardTitle>Chat with AI Advisor</CardTitle>
+              <CardTitle>{t("advisor.chat.title")}</CardTitle>
               <CardDescription>
-                Ask anything about cattle farming business in Bangla or English
+                {t("advisor.chat.desc")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -124,7 +126,7 @@ const BusinessAdvisor = () => {
 
               <div className="flex gap-2">
                 <Input
-                  placeholder="Ask about farm setup, costs, market strategies..."
+                  placeholder={t("advisor.chat.placeholder")}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
@@ -139,12 +141,12 @@ const BusinessAdvisor = () => {
 
           <Card className="mt-6 border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5">
             <CardContent className="p-6">
-              <h3 className="mb-2 font-semibold">Quick Tips:</h3>
+              <h3 className="mb-2 font-semibold">{t("advisor.tips.title")}</h3>
               <ul className="space-y-1 text-sm text-muted-foreground">
-                <li>• Ask about budget requirements for different farm sizes</li>
-                <li>• Get guidance on ROI and profitability timelines</li>
-                <li>• Learn about local market trends and pricing</li>
-                <li>• Receive advice on breed selection for your goals</li>
+                <li>{t("advisor.tips.1")}</li>
+                <li>{t("advisor.tips.2")}</li>
+                <li>{t("advisor.tips.3")}</li>
+                <li>{t("advisor.tips.4")}</li>
               </ul>
             </CardContent>
           </Card>

@@ -1,20 +1,24 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useLanguage } from "@/contexts/LanguageContext";
 import cowIcon from "@/assets/cow-icon.png";
 
 const Navbar = () => {
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
   
   const isActive = (path: string) => location.pathname === path;
   
   const navLinks = [
-    { path: "/", label: "Home" },
-    { path: "/analysis", label: "Cattle Analysis" },
-    { path: "/nutrition", label: "Nutrition Planner" },
-    { path: "/advisor", label: "Business Advisor" },
-    { path: "/dashboard", label: "Dashboard" },
+    { path: "/", label: t("nav.home") },
+    { path: "/analysis", label: t("nav.analysis") },
+    { path: "/nutrition", label: t("nav.nutrition") },
+    { path: "/advisor", label: t("nav.advisor") },
+    { path: "/dashboard", label: t("nav.dashboard") },
   ];
 
   const NavLinks = ({ mobile = false }: { mobile?: boolean }) => (
@@ -49,8 +53,23 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Language Toggle */}
+          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary/50">
+            <Label htmlFor="language-toggle" className="text-xs font-medium cursor-pointer">
+              EN
+            </Label>
+            <Switch
+              id="language-toggle"
+              checked={language === "bn"}
+              onCheckedChange={(checked) => setLanguage(checked ? "bn" : "en")}
+            />
+            <Label htmlFor="language-toggle" className="text-xs font-medium cursor-pointer">
+              BN
+            </Label>
+          </div>
+
           <Button variant="default" asChild className="hidden md:inline-flex">
-            <Link to="/auth">Get Started</Link>
+            <Link to="/auth">{t("nav.getStarted")}</Link>
           </Button>
 
           {/* Mobile Menu */}
@@ -63,8 +82,27 @@ const Navbar = () => {
             <SheetContent side="right">
               <div className="flex flex-col gap-4 mt-8">
                 <NavLinks mobile />
+                {/* Language Toggle for Mobile */}
+                <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-secondary/50">
+                  <Label htmlFor="language-toggle-mobile" className="text-sm font-medium">
+                    {t("nav.language")}
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="language-toggle-mobile" className="text-xs font-medium cursor-pointer">
+                      EN
+                    </Label>
+                    <Switch
+                      id="language-toggle-mobile"
+                      checked={language === "bn"}
+                      onCheckedChange={(checked) => setLanguage(checked ? "bn" : "en")}
+                    />
+                    <Label htmlFor="language-toggle-mobile" className="text-xs font-medium cursor-pointer">
+                      BN
+                    </Label>
+                  </div>
+                </div>
                 <Button variant="default" asChild className="mt-4">
-                  <Link to="/auth">Get Started</Link>
+                  <Link to="/auth">{t("nav.getStarted")}</Link>
                 </Button>
               </div>
             </SheetContent>
